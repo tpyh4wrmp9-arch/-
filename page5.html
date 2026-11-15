@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سلة التسوق - كل قطعة تحكي حكاية</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #F7F2E9;
+    color: #49352D;
+}
+
+header {
+    background: #5B3B30;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h2 {
+    margin: 5px;
+}
+
+nav {
+    background: #E9DED2;
+    padding: 13px;
+    text-align: center;
+}
+
+nav a {
+    color: #5B3B30;
+    text-decoration: none;
+    margin: 12px;
+    font-weight: bold;
+}
+
+.container {
+    max-width: 850px;
+    margin: 30px auto;
+    padding: 15px;
+}
+
+h1, h3 {
+    color: #5B3B30;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.product {
+    background: white;
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid #E2D5C9;
+    text-align: center;
+}
+
+.product .photo {
+    background: #F2E8DC;
+    border-radius: 10px;
+    padding: 22px;
+    font-size: 48px;
+}
+
+.price {
+    color: #795747;
+    font-weight: bold;
+}
+
+button {
+    background: #5B3B30;
+    color: white;
+    border: none;
+    padding: 11px 17px;
+    border-radius: 7px;
+    cursor: pointer;
+    margin: 4px;
+}
+
+button:hover {
+    background: #795747;
+}
+
+.cart, .checkout {
+    background: white;
+    padding: 22px;
+    margin-top: 25px;
+    border-radius: 12px;
+    border: 1px solid #E2D5C9;
+}
+
+.cart-item {
+    border-bottom: 1px solid #E9DED2;
+    padding: 12px 0;
+}
+
+.delete {
+    background: #987568;
+}
+
+.summary {
+    background: #F7F2E9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.summary p {
+    display: flex;
+    justify-content: space-between;
+}
+
+#total {
+    font-weight: bold;
+    font-size: 20px;
+    color: #5B3B30;
+}
+
+input, textarea {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #D7C6B8;
+    border-radius: 7px;
+    font-family: Arial;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.checkout {
+    display: none;
+}
+
+footer {
+    background: #5B3B30;
+    color: white;
+    text-align: center;
+    padding: 18px;
+    margin-top: 35px;
+}
+
+@media(max-width: 500px) {
+    .products {
+        grid-template-columns: 1fr;
+    }
+
+    nav a {
+        margin: 5px;
+        font-size: 13px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>كل قطعة تحكي حكاية</h2>
+    <p>منتجات حرفية صنعت بحب وإبداع</p>
+</header>
+
+<nav>
+    <a href="index.html">الرئيسية</a>
+    <a href="page5.html">سلة التسوق 🛒</a>
+</nav>
+
+<div class="container">
+
+    <h1>منتجاتنا الحرفية</h1>
+    <p>اختاري قطعتك المفضلة وأضيفيها إلى سلة التسوق.</p>
+
+    <div class="products">
+
+        <div class="product">
+            <div class="photo">👜</div>
+            <h3>حقيبة منسوجة يدوياً</h3>
+            <p>حقيبة مصنوعة من الخيوط الطبيعية.</p>
+            <p class="price">180 ريال</p>
+            <button onclick="addToCart(0)">أضيفي إلى السلة</button>
+        </div>
+
+        <div class="product">
+            <div class="photo">🏺</div>
+            <h3>إناء فخاري مزخرف</h3>
+            <p>قطعة فخارية بتصميم يدوي مميز.</p>
+            <p class="price">220 ريال</p>
+            <button onclick="addToCart(1)">أضيفي إلى السلة</button>
+        </div>
+
+        <div class="product">
+            <div class="photo">🕯️</div>
+            <h3>طقم شموع طبيعية</h3>
+            <p>شموع بتصميم جميل وأنيق.</p>
+            <p class="price">95 ريال</p>
+            <button onclick="addToCart(2)">أضيفي إلى السلة</button>
+        </div>
+
+        <div class="product">
+            <div class="photo">🎨</div>
+            <h3>منتج مخصص حسب التصميم</h3>
+            <p>تصميم خاص حسب رغبة العميل.</p>
+            <p class="price">يبدأ من 250 ريال</p>
+            <button onclick="addToCart(3)">أضيفي إلى السلة</button>
+        </div>
+
+    </div>
+
+    <section class="cart">
+        <h2>🛒 سلة التسوق</h2>
+
+        <div id="cartItems">لم تتم إضافة أي منتجات بعد.</div>
+
+        <div class="summary">
+            <p>
+                <span>مجموع المنتجات:</span>
+                <span id="subtotal">0 ريال</span>
+            </p>
+
+            <p>
+                <span>الشحن:</span>
+                <span id="shipping">0 ريال</span>
+            </p>
+
+            <hr>
+
+            <p id="total">
+                <span>الإجمالي:</span>
+                <span>0 ريال</span>
+            </p>
+        </div>
+
+        <button onclick="showCheckout()">
+            متابعة إتمام الطلب
+        </button>
+    </section>
+
+    <section class="checkout" id="checkout">
+        <h2>بيانات التوصيل</h2>
+        <p>يرجى إدخال بياناتك لإكمال الطلب.</p>
+
+        <form onsubmit="confirmOrder(event)">
+
+            <input type="text" id="customer"
+            placeholder="الاسم الكامل" required>
+
+            <input type="tel" id="phone"
+            placeholder="رقم الجوال" required
+            pattern="[0-9]{10}" title="أدخلي رقم جوال من 10 أرقام">
+
+            <input type="text" id="city"
+            placeholder="المدينة" required>
+
+            <textarea id="address"
+            placeholder="العنوان بالتفصيل" required></textarea>
+
+            <button type="submit">تأكيد الطلب</button>
+
+        </form>
+
+        <div id="confirmation"></div>
+    </section>
+
+</div>
+
+<footer>
+    كل قطعة تحكي حكاية © 2026
+</footer>
+
+<script>
+
+const products = [
+    {name: "حقيبة منسوجة يدوياً", price: 180},
+    {name: "إناء فخاري مزخرف", price: 220},
+    {name: "طقم شموع طبيعية", price: 95},
+    {name: "منتج مخصص حسب التصميم", price: 250}
+];
+
+let cart = [];
+
+function addToCart(index) {
+
+    let found = false;
+
+    for (let i = 0; i < cart.length; i++) {
+
+        if (cart[i].name == products[index].name) {
+            cart[i].quantity++;
+            found = true;
+        }
+    }
+
+    if (found == false) {
+
+        cart.push({
+            name: products[index].name,
+            price: products[index].price,
+            quantity: 1
+        });
+
+    }
+
+    displayCart();
+
+    alert("تمت إضافة المنتج إلى السلة");
+}
+
+function displayCart() {
+
+    let items = "";
+    let subtotal = 0;
+
+    for (let i = 0; i < cart.length; i++) {
+
+        items += "<div class='cart-item'><b>" +
+        cart[i].name + "</b><br>" +
+        "السعر: " + cart[i].price + " ريال" +
+        "<br>الكمية: " + cart[i].quantity +
+
+        "<br><button onclick='changeQuantity(" + i +
+        ",1)'>+</button>" +
+
+        "<button onclick='changeQuantity(" + i +
+        ",-1)'>-</button>" +
+
+        "<button class='delete' onclick='removeItem(" +
+        i + ")'>حذف</button></div>";
+
+        subtotal += cart[i].price * cart[i].quantity;
+    }
+
+    if (cart.length == 0) {
+        items = "لم تتم إضافة أي منتجات بعد.";
+    }
+
+    let shipping = 0;
+
+    if (cart.length > 0) {
+        shipping = 20;
+    }
+
+    document.getElementById("cartItems").innerHTML = items;
+
+    document.getElementById("subtotal").innerHTML =
+    subtotal + " ريال";
+
+    document.getElementById("shipping").innerHTML =
+    shipping + " ريال";
+
+    document.getElementById("total").innerHTML =
+    "<span>الإجمالي:</span><span>" +
+    (subtotal + shipping) + " ريال</span>";
+}
+
+function changeQuantity(index, amount) {
+
+    cart[index].quantity += amount;
+
+    if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+    }
+
+    displayCart();
+}
+
+function removeItem(index) {
+
+    cart.splice(index, 1);
+    displayCart();
+}
+
+function showCheckout() {
+
+    if (cart.length == 0) {
+        alert("يرجى إضافة منتج إلى السلة أولاً");
+    } else {
+        document.getElementById("checkout").style.display = "block";
+        document.getElementById("checkout").scrollIntoView({
+            behavior: "smooth"
+        });
+    }
+}
+
+function confirmOrder(event) {
+
+    event.preventDefault();
+
+    if (cart.length == 0) {
+        alert("السلة فارغة");
+        return;
+    }
+
+    let name = document.getElementById("customer").value;
+
+    document.getElementById("confirmation").innerHTML =
+    "<h3>شكراً لك يا " + name +
+    " ❤️</h3><p>تم تسجيل طلبك بنجاح (تجريبي).</p>";
+
+}
+
+</script>
+
+</body>
+</html>
